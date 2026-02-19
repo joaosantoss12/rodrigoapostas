@@ -282,8 +282,8 @@ function App() {
               <div className="price-badge">COMPRA ÚNICA</div>
               <div className="price-amount">
                 <span className="price-curr">€</span>
-                <span className="price-num">14</span>
-                <span className="price-dec">.99</span>
+                <span className="price-num">{pick?.price?.split('.')[0] ?? '14'}</span>
+                <span className="price-dec">.{pick?.price?.split('.')[1] ?? '99'}</span>
               </div>
               <p className="price-desc">
                 Paga uma vez. Recebe a análise. Sem renovações automáticas.
