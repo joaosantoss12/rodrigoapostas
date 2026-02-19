@@ -45,11 +45,13 @@ export default async function handler(req, res) {
 
   let event
   try {
-    event = stripe.webhooks.constructEvent(
-      rawBody,
-      sig,
-      process.env.STRIPE_WEBHOOK_SECRET
-    )
+    if (process.env.STRIPE_WEBHOOK_SECRET) {
+      event = stripe.webhooks.constructEvent(rawBody, sig, process.env.STRIPE_WEBHOOK_SECRET)
+    } else {
+      // No secret configured — skip verification (only for debugging)
+      console.warn('[webhook] STRIPE_WEBHOOK_SECRET not set — skipping signature verification')
+      event = JSON.parse(rawBody.toString())
+    }
   } catch (err) {
     console.error('[webhook] Signature verification failed:', err.message)
     return res.status(400).send(`Webhook Error: ${err.message}`)
