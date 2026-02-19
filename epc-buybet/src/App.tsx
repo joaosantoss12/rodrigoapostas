@@ -16,15 +16,6 @@ interface Pick {
   price: string
 }
 
-const DEFAULT_PICK: Pick = {
-  game: 'Benfica vs Porto',
-  bet: 'Ambas Marcam — SIM',
-  odd: '1.85',
-  analysis: 'O Benfica marcou nos últimos 8 jogos em casa. O Porto tem a melhor linha ofensiva fora de casa da liga...',
-  markets: '',
-  price: '14.99',
-}
-
 function SuccessPage() {
   return (
     <div className="success-page">
@@ -63,7 +54,7 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
 function App() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-  const [pick, setPick] = useState<Pick>(DEFAULT_PICK)
+  const [pick, setPick] = useState<Pick>()
   const isSuccess = new URLSearchParams(window.location.search).get('success') === '1'
 
   useEffect(() => {
@@ -83,7 +74,7 @@ function App() {
       })
   }, [])
 
-  const PRICE = `${pick.price}€`
+  const PRICE = pick ? `${pick.price}€` : '-€'
 
   if (isSuccess) return <SuccessPage />
 
@@ -260,19 +251,19 @@ function App() {
                 <div className="email-preview">
                   <div className="email-row">
                     <span className="email-label">Jogo</span>
-                    <span>{pick.game}</span>
+                    <span>{pick?.game || '-'}</span>
                   </div>
                   <div className="email-row">
                     <span className="email-label">Aposta</span>
-                    <span className="pick-highlight">{pick.bet}</span>
+                    <span className="pick-highlight">{pick?.bet || '-'}</span>
                   </div>
                   <div className="email-row">
                     <span className="email-label">Odd</span>
-                    <span className="odd-value">{pick.odd}</span>
+                    <span className="odd-value">{pick?.odd || '-'}</span>
                   </div>
                   <div className="email-analysis">
                     <span className="email-label">Análise</span>
-                    <p>{pick.analysis}</p>
+                    <p>{pick?.analysis || '-'}</p>
                   </div>
                 </div>
               </div>
