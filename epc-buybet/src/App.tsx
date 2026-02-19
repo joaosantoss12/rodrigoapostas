@@ -113,7 +113,7 @@ function App() {
                 <span className="spinner" />
               ) : (
                 <>
-                  <span>Comprar Análise</span>
+                  <span>Comprar Aposta</span>
                   <span className="btn-price">{PRICE}</span>
                 </>
               )}
@@ -135,12 +135,12 @@ function App() {
           </div>
           <div className="stat-divider" />
           <div className="stat">
-            <span className="stat-num">+500</span>
+            <span className="stat-num">+1500</span>
             <span className="stat-label">Apostadores Satisfeitos</span>
           </div>
           <div className="stat-divider" />
           <div className="stat">
-            <span className="stat-num">2+</span>
+            <span className="stat-num">5+</span>
             <span className="stat-label">Anos de Experiência</span>
           </div>
           <div className="stat-divider" />
