@@ -10,8 +10,8 @@
 .bg-image {
   position: fixed;
   inset: 0;
-  background: url('/image.png') center center / cover no-repeat;
-  opacity: 0.08;
+  background: url('/image.png') top center / 100% auto no-repeat;
+  opacity: 0.15;
   z-index: 0;
   pointer-events: none;
 }
@@ -281,7 +281,7 @@
 
 .steps {
   display: flex;
-  align-items: flex-start;
+  align-items: stretch;
   justify-content: center;
   gap: 0;
   margin-top: 3.5rem;

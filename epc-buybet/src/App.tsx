@@ -95,7 +95,7 @@ function App() {
         <div className="hero-content">
           <div className="hero-badge">🏆 Análises Desportivas Premium</div>
           <h1 className="hero-title">
-            A Pick Certa,
+            A Aposta Certa,
             <br />
             <span className="gradient-text">Na Hora Certa.</span>
           </h1>
@@ -158,7 +158,7 @@ function App() {
           <h2 className="section-title">Como Funciona?</h2>
           <div className="steps">
             <div className="step">
-              <div className="step-num">01</div>
+              <div className="step-num">Passo [1]</div>
               <div className="step-icon">💳</div>
               <h3>Compras a Análise</h3>
               <p>
@@ -167,7 +167,7 @@ function App() {
             </div>
             <div className="step-arrow">→</div>
             <div className="step">
-              <div className="step-num">02</div>
+              <div className="step-num">Passo [2]</div>
               <div className="step-icon">📧</div>
               <h3>Introduzes o Email</h3>
               <p>
@@ -176,9 +176,9 @@ function App() {
             </div>
             <div className="step-arrow">→</div>
             <div className="step">
-              <div className="step-num">03</div>
+              <div className="step-num">Passo [3]</div>
               <div className="step-icon">🎯</div>
-              <h3>Recebes a Pick</h3>
+              <h3>Recebes a Aposta</h3>
               <p>
                 A análise detalhada e aposta recomendada chegam ao teu email em minutos.
               </p>
@@ -202,7 +202,7 @@ function App() {
                 {[
                   'Análise completa do jogo',
                   'Aposta recomendada com odd',
-                  'Fundamentação e raciocínio da pick',
+                  'Fundamentação e raciocínio da aposta',
                   'Mercados alternativos sugeridos',
                   'Entregue por email em minutos',
                   'Sem subscrição — pagas só quando queres',

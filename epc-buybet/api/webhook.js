@@ -90,7 +90,7 @@ async function sendPickEmail(to) {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>A tua Pick — El Pedrito Apostas</title>
+  <title>A tua Aposta — El Pedrito Apostas</title>
 </head>
 <body style="margin:0;padding:0;background:#080B10;font-family:'Inter',system-ui,sans-serif;">
   <table width="100%" cellpadding="0" cellspacing="0" style="background:#080B10;padding:40px 16px;">
@@ -102,7 +102,7 @@ async function sendPickEmail(to) {
           <tr>
             <td style="background:linear-gradient(135deg,#EAB308,#CA8A04);border-radius:16px 16px 0 0;padding:32px;text-align:center;">
               <p style="margin:0 0 4px;color:rgba(0,0,0,0.6);font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;">El Pedrito Apostas</p>
-              <h1 style="margin:0;font-size:28px;font-weight:900;color:#000;letter-spacing:-0.02em;">⚽ A tua Pick chegou!</h1>
+              <h1 style="margin:0;font-size:28px;font-weight:900;color:#000;letter-spacing:-0.02em;">⚽ A tua Aposta chegou!</h1>
             </td>
           </tr>
 
@@ -169,7 +169,7 @@ async function sendPickEmail(to) {
   await resend.emails.send({
     from: process.env.FROM_EMAIL || 'El Pedrito Apostas <noreply@resend.dev>',
     to,
-    subject: `⚽ A tua Pick chegou — El Pedrito Apostas`,
+    subject: `⚽ A tua Aposta chegou — El Pedrito Apostas`,
     html,
   })
 }
