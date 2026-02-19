@@ -1,5 +1,4 @@
 import Stripe from 'stripe'
-import nodemailer from 'nodemailer'
 import { createClient } from '@supabase/supabase-js'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
@@ -7,16 +6,6 @@ const supabase = createClient(
   process.env.VITE_SUPABASE_URL,
   process.env.VITE_SUPABASE_ANON_KEY
 )
-
-const transporter = nodemailer.createTransport({
-  host: 'smtp-relay.brevo.com',
-  port: 587,
-  secure: false,
-  auth: {
-    user: process.env.BREVO_SMTP_USER,
-    pass: process.env.BREVO_SMTP_PASS,
-  },
-})
 
 // Read raw body from stream (needed for Stripe signature verification)
 async function getRawBody(req) {
@@ -177,10 +166,23 @@ async function sendPickEmail(to) {
 </body>
 </html>`
 
-  await transporter.sendMail({
-    from: `"El Pedrito Apostas" <${process.env.BREVO_SMTP_USER}>`,
-    to,
-    subject: `⚽ A tua Aposta chegou — El Pedrito Apostas`,
-    html,
+  const response = await fetch('https://api.brevo.com/v3/smtp/email', {
+    method: 'POST',
+    headers: {
+      'accept': 'application/json',
+      'api-key': process.env.BREVO_API_KEY,
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      sender: { name: 'El Pedrito Apostas', email: process.env.BREVO_FROM_EMAIL },
+      to: [{ email: to }],
+      subject: '⚽ A tua Aposta chegou — El Pedrito Apostas',
+      htmlContent: html,
+    }),
   })
+
+  if (!response.ok) {
+    const errBody = await response.text()
+    throw new Error(`Brevo API error ${response.status}: ${errBody}`)
+  }
 }
