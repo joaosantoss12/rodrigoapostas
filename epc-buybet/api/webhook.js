@@ -2,6 +2,13 @@ import Stripe from 'stripe'
 import { Resend } from 'resend'
 import { createClient } from '@supabase/supabase-js'
 
+// Required for Stripe webhook signature verification on Vercel
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+}
+
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 const resend = new Resend(process.env.RESEND_API_KEY)
 const supabase = createClient(
