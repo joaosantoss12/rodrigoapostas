@@ -31,7 +31,6 @@ export default async function handler(req, res) {
 
     const origin = req.headers.origin || process.env.FRONTEND_URL || 'https://elpedritoapostas.vercel.app'
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
       locale: 'pt',
       line_items: [
         {
