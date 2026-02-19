@@ -1,5 +1,5 @@
 import Stripe from 'stripe'
-import { Resend } from 'resend'
+import nodemailer from 'nodemailer'
 import { createClient } from '@supabase/supabase-js'
 
 // Required for Stripe webhook signature verification on Vercel
@@ -10,11 +10,20 @@ export const config = {
 }
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
-const resend = new Resend(process.env.RESEND_API_KEY)
 const supabase = createClient(
   process.env.VITE_SUPABASE_URL,
   process.env.VITE_SUPABASE_ANON_KEY
 )
+
+const transporter = nodemailer.createTransport({
+  host: 'smtp-relay.brevo.com',
+  port: 587,
+  secure: false,
+  auth: {
+    user: process.env.BREVO_SMTP_USER,
+    pass: process.env.BREVO_SMTP_PASS,
+  },
+})
 
 // Read raw body from stream (needed for Stripe signature verification)
 async function getRawBody(req) {
@@ -173,8 +182,8 @@ async function sendPickEmail(to) {
 </body>
 </html>`
 
-  await resend.emails.send({
-    from: process.env.FROM_EMAIL || 'El Pedrito Apostas <noreply@resend.dev>',
+  await transporter.sendMail({
+    from: `"El Pedrito Apostas" <${process.env.BREVO_SMTP_USER}>`,
     to,
     subject: `⚽ A tua Aposta chegou — El Pedrito Apostas`,
     html,
