@@ -1,7 +1,29 @@
 import { useState, useEffect } from 'react'
+import { createClient } from '@supabase/supabase-js'
 import './App.css'
 
-const PRICE = '14.99€'
+const supabase = createClient(
+  import.meta.env.VITE_SUPABASE_URL,
+  import.meta.env.VITE_SUPABASE_ANON_KEY
+)
+
+interface Pick {
+  game: string
+  bet: string
+  odd: string
+  analysis: string
+  markets: string
+  price: string
+}
+
+const DEFAULT_PICK: Pick = {
+  game: 'Benfica vs Porto',
+  bet: 'Ambas Marcam — SIM',
+  odd: '1.85',
+  analysis: 'O Benfica marcou nos últimos 8 jogos em casa. O Porto tem a melhor linha ofensiva fora de casa da liga...',
+  markets: '',
+  price: '14.99',
+}
 
 function SuccessPage() {
   return (
@@ -41,11 +63,27 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
 function App() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [pick, setPick] = useState<Pick>(DEFAULT_PICK)
   const isSuccess = new URLSearchParams(window.location.search).get('success') === '1'
 
   useEffect(() => {
     if (isSuccess) window.scrollTo(0, 0)
   }, [isSuccess])
+
+  useEffect(() => {
+    supabase
+      .from('picks')
+      .select('*')
+      .eq('active', true)
+      .order('created_at', { ascending: false })
+      .limit(1)
+      .single()
+      .then(({ data }) => {
+        if (data) setPick(data)
+      })
+  }, [])
+
+  const PRICE = `${pick.price}€`
 
   if (isSuccess) return <SuccessPage />
 
@@ -222,31 +260,19 @@ function App() {
                 <div className="email-preview">
                   <div className="email-row">
                     <span className="email-label">Jogo</span>
-                    <span>Benfica vs Porto</span>
+                    <span>{pick.game}</span>
                   </div>
                   <div className="email-row">
                     <span className="email-label">Aposta</span>
-                    <span className="pick-highlight">Ambas Marcam — SIM</span>
+                    <span className="pick-highlight">{pick.bet}</span>
                   </div>
                   <div className="email-row">
                     <span className="email-label">Odd</span>
-                    <span className="odd-value">1.85</span>
-                  </div>
-                  <div className="email-row">
-                    <span className="email-label">Confiança</span>
-                    <div className="confidence">
-                      <div className="conf-bar">
-                        <div className="conf-fill" style={{ width: '82%' }} />
-                      </div>
-                      <span>82%</span>
-                    </div>
+                    <span className="odd-value">{pick.odd}</span>
                   </div>
                   <div className="email-analysis">
                     <span className="email-label">Análise</span>
-                    <p>
-                      O Benfica marcou nos últimos 8 jogos em casa. O Porto
-                      tem a melhor linha ofensiva fora de casa da liga...
-                    </p>
+                    <p>{pick.analysis}</p>
                   </div>
                 </div>
               </div>

@@ -1,6 +1,11 @@
 import Stripe from 'stripe'
+import { createClient } from '@supabase/supabase-js'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_ANON_KEY
+)
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -8,6 +13,17 @@ export default async function handler(req, res) {
   }
 
   try {
+    // Fetch active price from Supabase
+    const { data: pick } = await supabase
+      .from('picks')
+      .select('price')
+      .eq('active', true)
+      .order('created_at', { ascending: false })
+      .limit(1)
+      .single()
+
+    const priceInCents = Math.round(parseFloat(pick?.price || '14.99') * 100)
+
     const origin = req.headers.origin || process.env.FRONTEND_URL
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
@@ -21,7 +37,7 @@ export default async function handler(req, res) {
               description:
                 'Análise completa e aposta recomendada enviada diretamente para o teu email.',
             },
-            unit_amount: 1499, // 14.99€
+            unit_amount: priceInCents,
           },
           quantity: 1,
         },
