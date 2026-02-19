@@ -13,7 +13,7 @@ interface Pick {
   odd: string
   analysis: string
   markets: string
-  price: string
+  price: string | number
 }
 
 function SuccessPage() {
@@ -74,7 +74,7 @@ function App() {
       })
   }, [])
 
-  const PRICE = pick ? `${pick.price}€` : '-€'
+  const PRICE = pick ? `${Number(pick.price).toFixed(2)}€` : '14.99€'
 
   if (isSuccess) return <SuccessPage />
 
@@ -282,8 +282,8 @@ function App() {
               <div className="price-badge">COMPRA ÚNICA</div>
               <div className="price-amount">
                 <span className="price-curr">€</span>
-                <span className="price-num">{pick?.price?.split('.')[0] ?? '14'}</span>
-                <span className="price-dec">.{pick?.price?.split('.')[1] ?? '99'}</span>
+                <span className="price-num">{pick ? Number(pick.price).toFixed(2).split('.')[0] : '14'}</span>
+                <span className="price-dec">.{pick ? Number(pick.price).toFixed(2).split('.')[1] : '99'}</span>
               </div>
               <p className="price-desc">
                 Paga uma vez. Recebe a análise. Sem renovações automáticas.
