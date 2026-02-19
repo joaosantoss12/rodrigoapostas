@@ -251,19 +251,19 @@ function App() {
                 <div className="email-preview">
                   <div className="email-row">
                     <span className="email-label">Jogo</span>
-                    <span>{pick?.game || '-'}</span>
+                    <span>Manchester City vs Liverpool</span>
                   </div>
                   <div className="email-row">
                     <span className="email-label">Aposta</span>
-                    <span className="pick-highlight">{pick?.bet || '-'}</span>
+                    <span className="pick-highlight">Ambas as Equipas Marcam</span>
                   </div>
                   <div className="email-row">
                     <span className="email-label">Odd</span>
-                    <span className="odd-value">{pick?.odd || '-'}</span>
+                    <span className="odd-value">1.85</span>
                   </div>
                   <div className="email-analysis">
                     <span className="email-label">Análise</span>
-                    <p>{pick?.analysis || '-'}</p>
+                    <p>Ambas as equipas chegam em grande forma ofensiva. O City leva 8 jogos consecutivos a marcar em casa, enquanto o Liverpool não fechou a baliza fora nas últimas 6 deslocações. Esperamos um jogo aberto com golos dos dois lados.</p>
                   </div>
                 </div>
               </div>
