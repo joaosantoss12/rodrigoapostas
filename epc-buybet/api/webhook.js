@@ -2,13 +2,6 @@ import Stripe from 'stripe'
 import nodemailer from 'nodemailer'
 import { createClient } from '@supabase/supabase-js'
 
-// Required for Stripe webhook signature verification on Vercel
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-}
-
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 const supabase = createClient(
   process.env.VITE_SUPABASE_URL,
