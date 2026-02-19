@@ -1,16 +1,21 @@
 import Stripe from 'stripe'
 import { createClient } from '@supabase/supabase-js'
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
-const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_ANON_KEY
-)
-
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' })
   }
+
+  if (!process.env.STRIPE_SECRET_KEY) {
+    console.error('[create-checkout] STRIPE_SECRET_KEY is not set')
+    return res.status(500).json({ error: 'Stripe não configurado.' })
+  }
+
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
+  const supabase = createClient(
+    process.env.SUPABASE_URL,
+    process.env.SUPABASE_ANON_KEY
+  )
 
   try {
     // Fetch active price from Supabase
@@ -24,7 +29,7 @@ export default async function handler(req, res) {
 
     const priceInCents = Math.round(parseFloat(pick?.price || '14.99') * 100)
 
-    const origin = req.headers.origin || process.env.FRONTEND_URL
+    const origin = req.headers.origin || process.env.FRONTEND_URL || 'https://elpedritoapostas.vercel.app'
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       locale: 'pt',
