@@ -135,7 +135,7 @@ function App() {
           </div>
           <div className="stat-divider" />
           <div className="stat">
-            <span className="stat-num">+1500</span>
+            <span className="stat-num">1500+</span>
             <span className="stat-label">Apostadores Satisfeitos</span>
           </div>
           <div className="stat-divider" />
