@@ -149,6 +149,17 @@ async function sendPickEmail(to) {
                 </tr>` : ''}
               </table>
 
+              ${pick.image_url ? `
+              <!-- Bet Image -->
+              <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
+                <tr>
+                  <td style="text-align:center;">
+                    <p style="margin:0 0 10px;font-size:11px;color:#EAB308;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;">Aposta em imagem</p>
+                    <img src="${pick.image_url}" alt="Aposta — El Pedrito Apostas" width="100%" style="max-width:540px;border-radius:10px;border:1px solid rgba(234,179,8,0.20);display:block;margin:0 auto;" />
+                  </td>
+                </tr>
+              </table>` : ''}
+
               <!-- Disclaimer -->
               <p style="margin:0 0 8px;font-size:12px;color:rgba(148,163,184,0.5);line-height:1.6;border-top:1px solid rgba(255,255,255,0.07);padding-top:24px;">
                 ⚠️ Esta análise é de caráter informativo. Apostar pode criar dependência. Joga com responsabilidade. +18.
