@@ -114,51 +114,72 @@ async function sendPickEmail(to) {
                 Obrigado pela tua compra! Aqui está a análise e aposta que preparámos para ti.
               </p>
 
-              <!-- Pick box -->
-              <table width="100%" cellpadding="0" cellspacing="0" style="background:#141A22;border:1px solid rgba(234,179,8,0.25);border-radius:12px;overflow:hidden;margin-bottom:24px;">
-                <tr>
-                  <td style="padding:20px 24px;border-bottom:1px solid rgba(255,255,255,0.07);">
-                    <p style="margin:0;font-size:11px;color:#EAB308;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;">Jogo</p>
-                    <p style="margin:6px 0 0;font-size:18px;color:#F1F5F9;font-weight:700;">${pick.game}</p>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="padding:20px 24px;border-bottom:1px solid rgba(255,255,255,0.07);">
-                    <p style="margin:0;font-size:11px;color:#EAB308;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;">Aposta Recomendada</p>
-                    <p style="margin:6px 0 0;font-size:20px;color:#EAB308;font-weight:800;">${pick.bet}</p>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="padding:20px 24px;border-bottom:1px solid rgba(255,255,255,0.07);">
-                    <p style="margin:0;font-size:11px;color:#EAB308;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;">Odd</p>
-                    <p style="margin:6px 0 0;font-size:24px;color:#22C55E;font-weight:800;">${pick.odd}</p>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="padding:20px 24px;">
-                    <p style="margin:0;font-size:11px;color:#EAB308;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;">Análise</p>
-                    <p style="margin:8px 0 0;font-size:14px;color:#94A3B8;line-height:1.7;">${pick.analysis}</p>
-                  </td>
-                </tr>
-                ${pick.markets ? `
-                <tr>
-                  <td style="padding:16px 24px;background:rgba(234,179,8,0.05);border-top:1px solid rgba(255,255,255,0.07);">
-                    <p style="margin:0;font-size:11px;color:#EAB308;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;">Mercados Alternativos</p>
-                    <p style="margin:6px 0 0;font-size:14px;color:#94A3B8;line-height:1.6;">${pick.markets}</p>
-                  </td>
-                </tr>` : ''}
-              </table>
-
-              ${pick.image_url ? `
-              <!-- Bet Image -->
+              <!-- Pick cards: side by side if image exists, single column otherwise -->
               <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
-                <tr>
-                  <td style="text-align:center;">
-                    <p style="margin:0 0 10px;font-size:11px;color:#EAB308;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;">Aposta em imagem</p>
-                    <img src="${pick.image_url}" alt="Aposta — El Pedrito Apostas" width="100%" style="max-width:540px;border-radius:10px;border:1px solid rgba(234,179,8,0.20);display:block;margin:0 auto;" />
+                <tr valign="top">
+
+                  <!-- Text pick card -->
+                  <td style="padding-right:${pick.image_url ? '10px' : '0'};">
+                    <table width="100%" cellpadding="0" cellspacing="0" style="background:#141A22;border:1px solid rgba(234,179,8,0.25);border-radius:12px;overflow:hidden;">
+                      <tr>
+                        <td style="padding:20px 24px;border-bottom:1px solid rgba(255,255,255,0.07);">
+                          <p style="margin:0;font-size:11px;color:#EAB308;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;">Jogo</p>
+                          <p style="margin:6px 0 0;font-size:${pick.image_url ? '15px' : '18px'};color:#F1F5F9;font-weight:700;">${pick.game}</p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding:20px 24px;border-bottom:1px solid rgba(255,255,255,0.07);">
+                          <p style="margin:0;font-size:11px;color:#EAB308;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;">Aposta Recomendada</p>
+                          <p style="margin:6px 0 0;font-size:${pick.image_url ? '16px' : '20px'};color:#EAB308;font-weight:800;">${pick.bet}</p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding:20px 24px;border-bottom:1px solid rgba(255,255,255,0.07);">
+                          <p style="margin:0;font-size:11px;color:#EAB308;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;">Odd</p>
+                          <p style="margin:6px 0 0;font-size:${pick.image_url ? '20px' : '24px'};color:#22C55E;font-weight:800;">${pick.odd}</p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding:20px 24px;">
+                          <p style="margin:0;font-size:11px;color:#EAB308;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;">Análise</p>
+                          <p style="margin:8px 0 0;font-size:13px;color:#94A3B8;line-height:1.7;">${pick.analysis}</p>
+                        </td>
+                      </tr>
+                      ${pick.markets ? `
+                      <tr>
+                        <td style="padding:16px 24px;background:rgba(234,179,8,0.05);border-top:1px solid rgba(255,255,255,0.07);">
+                          <p style="margin:0;font-size:11px;color:#EAB308;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;">Mercados Alternativos</p>
+                          <p style="margin:6px 0 0;font-size:13px;color:#94A3B8;line-height:1.6;">${pick.markets}</p>
+                        </td>
+                      </tr>` : ''}
+                    </table>
                   </td>
+
+                  ${pick.image_url ? `
+                  <!-- Image pick card -->
+                  <td width="48%" style="padding-left:10px;">
+                    <table width="100%" cellpadding="0" cellspacing="0" style="background:#141A22;border:1px solid rgba(234,179,8,0.25);border-radius:12px;overflow:hidden;height:100%;">
+                      <tr>
+                        <td style="padding:14px 16px;border-bottom:1px solid rgba(255,255,255,0.07);">
+                          <p style="margin:0;font-size:11px;color:#EAB308;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;text-align:center;">Aposta em imagem</p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding:16px;text-align:center;">
+                          <img src="${pick.image_url}" alt="Aposta" width="100%" style="border-radius:8px;border:1px solid rgba(234,179,8,0.15);display:block;" />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding:14px 16px;border-top:1px solid rgba(255,255,255,0.07);text-align:center;">
+                          <p style="margin:0 0 8px;font-size:13px;color:#F1F5F9;line-height:1.6;font-weight:600;">Ganhas te esta super aposta e uma semana no meu vip! 🙌</p>
+                          <a href="https://t.me/+yqZeHcPcHgI5N2Zk" style="display:inline-block;background:linear-gradient(135deg,#EAB308,#CA8A04);color:#000;font-size:13px;font-weight:700;text-decoration:none;padding:8px 16px;border-radius:8px;">Entrar no VIP 🔥</a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>` : ''}
+
                 </tr>
-              </table>` : ''}
+              </table>
 
               <!-- Disclaimer -->
               <p style="margin:0 0 8px;font-size:12px;color:rgba(148,163,184,0.5);line-height:1.6;border-top:1px solid rgba(255,255,255,0.07);padding-top:24px;">
