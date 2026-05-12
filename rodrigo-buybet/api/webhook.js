@@ -266,7 +266,7 @@ async function sendPickEmail(to, invoiceLink) {
 
               <p style="margin:0 0 8px;font-size:12px;color:rgba(148,163,184,0.5);line-height:1.6;border-top:1px solid rgba(255,255,255,0.07);padding-top:24px;">
                 ⚠️ Esta análise é de caráter informativo. Apostar pode criar dependência. Joga com responsabilidade. +18.<br>
-                Em caso de dúvidas contacta-nos através de rodrigomembros@gmail.com
+                Em caso de dúvidas contacta-nos através de rodrigoapostaspremium@gmail.com
               </p>
               <p style="margin:0;font-size:12px;color:rgba(148,163,184,0.4);">
                 © ${new Date().getFullYear()} Rodrigo Apostas
