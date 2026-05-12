@@ -111,6 +111,13 @@ export default async function handler(req, res) {
 
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object
+    const seller = session.metadata?.seller
+
+    // Only process payments made through this seller's checkout
+    if (seller !== 'rodrigo') {
+      return res.status(200).json({ received: true })
+    }
+
     const email = session.customer_details?.email
     const amountTotal = session.amount_total // Valor total pago
 

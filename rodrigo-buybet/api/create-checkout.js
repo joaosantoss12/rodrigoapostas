@@ -33,6 +33,7 @@ export default async function handler(req, res) {
     const origin = req.headers.origin || process.env.FRONTEND_URL || 'https://rodrigoapostas.vercel.app'
     const session = await stripe.checkout.sessions.create({
       locale: 'pt',
+      metadata: { seller: 'rodrigo' },
       line_items: [
         {
           price_data: {
