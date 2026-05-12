@@ -14,6 +14,7 @@ interface Pick {
   analysis: string
   markets: string
   price: string | number
+  active: boolean
 }
 
 function SuccessPage() {
@@ -28,7 +29,7 @@ function SuccessPage() {
         </p>
         <p className="success-sub">
           Se não receberes o email nos próximos minutos, verifica a pasta de
-          spam.
+          spam e/ou a pasta de "promoções". Qualquer dúvida, entra em contacto rodrigomembros@gmail.com
         </p>
         <a href="/" className="btn-primary">
           Voltar ao Início
@@ -65,7 +66,7 @@ function App() {
     supabase
       .from('picks')
       .select('*')
-      .eq('active', true)
+      .eq('seller', 'rodrigo')
       .order('created_at', { ascending: false })
       .limit(1)
       .single()
@@ -74,7 +75,8 @@ function App() {
       })
   }, [])
 
-  const PRICE = pick ? `${Number(pick.price).toFixed(2)}€` : '14.99€'
+  const PRICE = pick ? `${Number(pick.price).toFixed(2)}€` : '99.99€'
+  const isDisabled = loading || pick?.active === false
 
   if (isSuccess) return <SuccessPage />
 
@@ -110,10 +112,10 @@ function App() {
           <div className="logo">
             <span className="logo-icon">⚽</span>
             <span className="logo-text">
-              El Pedrito <span className="logo-highlight">Apostas</span>
+              Rodrigo <span className="logo-highlight">Apostas</span>
             </span>
           </div>
-          <button className="btn-nav" onClick={handleBuy} disabled={loading}>
+          <button className="btn-nav" onClick={handleBuy} disabled={isDisabled}>
             Comprar — {PRICE}
           </button>
         </div>
@@ -136,7 +138,7 @@ function App() {
             <button
               className="btn-primary btn-large"
               onClick={handleBuy}
-              disabled={loading}
+              disabled={isDisabled}
             >
               {loading ? (
                 <span className="spinner" />
@@ -304,7 +306,7 @@ function App() {
               <button
                 className="btn-primary btn-full"
                 onClick={handleBuy}
-                disabled={loading}
+                disabled={isDisabled}
               >
                 {loading ? <span className="spinner" /> : `Comprar por ${PRICE}`}
               </button>
@@ -351,7 +353,7 @@ function App() {
           <div className="logo">
             <span className="logo-icon">⚽</span>
             <span className="logo-text">
-              El Pedrito <span className="logo-highlight">Apostas</span>
+              Rodrigo <span className="logo-highlight">Apostas</span>
             </span>
           </div>
           <p className="footer-disclaimer">
@@ -359,7 +361,7 @@ function App() {
             As análises são de caráter informativo e não garantem resultados.
           </p>
           <p className="footer-copy">
-            © {new Date().getFullYear()} El Pedrito Apostas. Todos os direitos reservados.
+            © {new Date().getFullYear()} Rodrigo Apostas. Todos os direitos reservados.
           </p>
         </div>
       </footer>

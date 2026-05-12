@@ -23,13 +23,14 @@ export default async function handler(req, res) {
       .from('picks')
       .select('price')
       .eq('active', true)
+      .eq('seller', 'rodrigo')
       .order('created_at', { ascending: false })
       .limit(1)
       .single()
 
     const priceInCents = Math.round(parseFloat(pick?.price || '14.99') * 100)
 
-    const origin = req.headers.origin || process.env.FRONTEND_URL || 'https://elpedritoapostas.vercel.app'
+    const origin = req.headers.origin || process.env.FRONTEND_URL || 'https://rodrigoapostas.vercel.app'
     const session = await stripe.checkout.sessions.create({
       locale: 'pt',
       line_items: [

@@ -10,7 +10,7 @@
 .bg-image {
   position: fixed;
   inset: 0;
-  background: url('/image.png') top center / 100% auto no-repeat;
+  background: url('/rodrigo.jpeg') top center / 100% auto no-repeat;
   opacity: 0.15;
   z-index: 0;
   pointer-events: none;

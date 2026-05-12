@@ -1,10 +1,10 @@
 {
-  "name": "epc-buybet",
+  "name": "rodrigo-buybet",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vercel dev",
+    "dev": "vite",
     "dev:web": "vite",
     "build": "vite build",
     "lint": "eslint .",
@@ -12,10 +12,11 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.97.0",
+    "dotenv": "^17.3.1",
     "nodemailer": "^8.0.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "stripe": "^20.3.1"
+    "stripe": "^20.4.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
