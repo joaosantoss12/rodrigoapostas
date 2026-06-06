@@ -29,7 +29,7 @@ function SuccessPage() {
         </p>
         <p className="success-sub">
           Se não receberes o email nos próximos minutos, verifica a pasta de
-          spam e/ou a pasta de "promoções". Qualquer dúvida, entra em contacto rodrigomembros@gmail.com
+          spam e/ou a pasta de "promoções". Qualquer dúvida, entra em contacto pelo Telegram @suporteEPC
         </p>
         <a href="/" className="btn-primary">
           Voltar ao Início
