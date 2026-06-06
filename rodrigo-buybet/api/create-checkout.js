@@ -49,6 +49,7 @@ export default async function handler(req, res) {
         },
       ],
       mode: 'payment',
+      payment_method_types: ['card', 'mb_way'],
       billing_address_collection: 'auto',
       customer_creation: 'always',
       success_url: `${origin}/?success=1&session_id={CHECKOUT_SESSION_ID}`,

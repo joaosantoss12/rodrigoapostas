@@ -7,7 +7,13 @@ const supabase = createClient(
   process.env.VITE_SUPABASE_ANON_KEY
 )
 
-// ── Read raw body from stream (needed for Stripe signature verification) 
+// ── Helper function to convert line breaks to HTML ──────────────────────
+function nl2br(text) {
+  if (!text) return '';
+  return text.replace(/\n/g, '<br>');
+}
+
+// ── Read raw body from stream (needed for Stripe signature verification)
 async function getRawBody(req) {
   return new Promise((resolve, reject) => {
     const chunks = []
@@ -168,6 +174,9 @@ async function sendPickEmail(to, invoiceLink) {
   const pick = await getActivePick()
 
   // Bloco HTML condicional: só aparece se a fatura for gerada com sucesso
+  const analysisHtml = nl2br(pick.analysis);
+  const marketsHtml = nl2br(pick.markets);
+
   const invoiceHtml = invoiceLink ? `
     <div style="margin-bottom:24px;padding:16px;background:rgba(255,255,255,0.03);border:1px dashed rgba(255,255,255,0.1);border-radius:8px;text-align:center;">
       <p style="margin:0 0 8px;font-size:14px;color:#F1F5F9;font-weight:600;">O teu pagamento foi processado com sucesso.</p>
@@ -237,14 +246,14 @@ async function sendPickEmail(to, invoiceLink) {
                       <tr>
                         <td style="padding:20px 24px;">
                           <p style="margin:0;font-size:11px;color:#EAB308;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;">Análise</p>
-                          <p style="margin:8px 0 0;font-size:13px;color:#94A3B8;line-height:1.7;">${pick.analysis}</p>
+                          <p style="margin:8px 0 0;font-size:13px;color:#94A3B8;line-height:1.7;">${analysisHtml}</p>
                         </td>
                       </tr>
                       ${pick.markets ? `
                       <tr>
                         <td style="padding:16px 24px;background:rgba(234,179,8,0.05);border-top:1px solid rgba(255,255,255,0.07);">
                           <p style="margin:0;font-size:11px;color:#EAB308;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;">Mercados Alternativos</p>
-                          <p style="margin:6px 0 0;font-size:13px;color:#94A3B8;line-height:1.6;">${pick.markets}</p>
+                          <p style="margin:6px 0 0;font-size:13px;color:#94A3B8;line-height:1.6;">${marketsHtml}</p>
                         </td>
                       </tr>` : ''}
                     </table>
